@@ -19,6 +19,37 @@ void imprimir(struct Nodo* nodo)
   {
     imprimir(nodo->siguiente);
   }
+  else
+  {
+    printf("\n");
+  }
+}
+
+struct Nodo* encontrarUltimoNodo(struct Nodo* nodo)
+{
+  if (nodo->siguiente == NULL) {
+    return nodo;
+  }
+  else {
+    encontrarUltimoNodo(nodo->siguiente);
+  }
+}
+
+struct Nodo* crearNuevoNodo(int valor)
+{
+  struct Nodo* nuevoNodo;
+  nuevoNodo = malloc(sizeof(struct Nodo));
+  nuevoNodo->Valor = valor;
+  nuevoNodo->siguiente = NULL;
+  return nuevoNodo;
+}
+
+struct Nodo* append(struct Nodo* nodoPadre, int valor)
+{
+  struct Nodo* nuevoNodo = crearNuevoNodo(valor);
+
+  encontrarUltimoNodo(nodoPadre)->siguiente = nuevoNodo;
+  return nodoPadre;
 }
 
 int main()
@@ -45,5 +76,8 @@ int main()
   nodo3->siguiente = NULL;
 
   imprimir(&nodo1);
+
+  imprimir(append(append(crearNuevoNodo(1), 2), 3));
+
   // printf("La edad de %s es %d", personaPuntero->Nombre, personaPuntero->Edad);
 }
