@@ -17,7 +17,7 @@ void imprimir(struct Nodo* nodo)
   printf("%d", nodo->Valor);
   if (nodo->siguiente != NULL)
   {
-    printf("%d", nodo->siguiente->Valor);
+    imprimir(nodo->siguiente);
   }
 }
 
@@ -32,11 +32,17 @@ int main()
 
   struct Nodo nodo1;
   struct Nodo* nodo2;
+  struct Nodo* nodo3;
+
   nodo2 = malloc(sizeof(struct Nodo));
+  nodo3 = malloc(sizeof(struct Nodo));
+
   nodo1.Valor = 1;
   nodo1.siguiente = nodo2;
   nodo2->Valor = 2;
-  nodo2->siguiente = NULL;
+  nodo2->siguiente = nodo3;
+  nodo3->Valor = 3;
+  nodo3->siguiente = NULL;
 
   imprimir(&nodo1);
   // printf("La edad de %s es %d", personaPuntero->Nombre, personaPuntero->Edad);
