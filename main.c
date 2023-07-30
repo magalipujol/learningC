@@ -65,13 +65,23 @@ struct Nodo* push(struct Nodo* nodoPadre, int valorNuevo)
   return nuevoNodo;
 }
 
-// pop
 struct Nodo* pop(struct Nodo* nodoPadre)
 {
   struct Nodo* nuevoPadre = nodoPadre->siguiente;
   free(nodoPadre);
   return nuevoPadre;
 }
+
+void delete(struct Nodo* nodo)
+{
+  if (nodo != NULL)
+  {
+    struct Nodo* siguiente = nodo->siguiente;
+    free(nodo);
+    delete(siguiente);
+  }
+}
+
 int main()
 {
   struct Persona persona1;
