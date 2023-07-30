@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+// TODO agregar al readme esto
+/*
+compile and run file:
+gcc main.c; .\a.exe
+*/
 struct Persona {   // Structure declaration
   int Edad;           // Member (int variable)
   char Nombre[20];       // Member (char variable)
@@ -52,6 +58,20 @@ struct Nodo* append(struct Nodo* nodoPadre, int valor)
   return nodoPadre;
 }
 
+struct Nodo* push(struct Nodo* nodoPadre, int valorNuevo)
+{
+  struct Nodo* nuevoNodo = crearNuevoNodo(valorNuevo);
+  nuevoNodo->siguiente = nodoPadre;
+  return nuevoNodo;
+}
+
+// pop
+struct Nodo* pop(struct Nodo* nodoPadre)
+{
+  struct Nodo* nuevoPadre = nodoPadre->siguiente;
+  free(nodoPadre);
+  return nuevoPadre;
+}
 int main()
 {
   struct Persona persona1;
@@ -76,8 +96,12 @@ int main()
   nodo3->siguiente = NULL;
 
   imprimir(&nodo1);
+  struct Nodo* nodoConPush = push(&nodo1, 0);
+  imprimir(nodoConPush);
+  struct Nodo* nodoConPop = pop(nodoConPush);
+  imprimir(nodoConPop);
 
-  imprimir(append(append(crearNuevoNodo(1), 2), 3));
+  // imprimir(append(append(crearNuevoNodo(1), 2), 3));
 
-  // printf("La edad de %s es %d", personaPuntero->Nombre, personaPuntero->Edad);
+
 }
