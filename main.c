@@ -132,22 +132,32 @@ struct Nodo* reverse1(struct Nodo* nodoPadre)
   return reversedNodo;
 }
 
-struct Nodo* reverse(struct Nodo* nodoPadre, struct Nodo* reversedList)
+
+// reverse([], []) = []
+// reverse([1, 2, 3], []) 
+//   = reverse([1, 2], [3]) 
+//   = reverse([1], [3, 2])  
+//   = reverse([], [3, 2, 1])  
+//   = [3, 2, 1]
+
+struct Nodo* reverse(struct Nodo* nodoPadre, struct Nodo* reversedNodo)
 {
   // si es el primer caso
-  reversedList = crearNuevoNodo(encontrarUltimoNodo(nodoPadre)->Valor);
+  if (nodoPadre == NULL) {
+    return reversedNodo;
+  }
+  if (reversedNodo->siguiente == NULL) {
+    reversedNodo = crearNuevoNodo(encontrarUltimoNodo(nodoPadre)->Valor);
+    deleteLastNodo(nodoPadre);
+  }
+  append(reversedNodo, encontrarUltimoNodo(nodoPadre)->Valor);
   deleteLastNodo(nodoPadre);
 
-
-  encontrarUltimoNodo(nodoPadre);
-  append(reversedList, encontrarUltimoNodo(nodoPadre)->Valor);
+  // return reverse(nodoPadre, reversedNodo);
+  append(reversedNodo, encontrarUltimoNodo(nodoPadre)->Valor);
   deleteLastNodo(nodoPadre);
 
-  encontrarUltimoNodo(nodoPadre);
-  append(reversedList, encontrarUltimoNodo(nodoPadre)->Valor);
-  deleteLastNodo(nodoPadre);
-
-  return reversedList;
+  return reversedNodo;
 }
 
 int main()
@@ -185,10 +195,8 @@ int main()
   // imprimir(append(append(crearNuevoNodo(1), 2), 3));
 
   imprimir(nodo1);
-  imprimir(reverse1(nodo1));
+  struct Nodo* reversedList;
+  //reversedList = malloc(sizeof(struct Nodo));
 
-  // struct Nodo* reversedList;
-  // imprimir(reverse(&nodo1, reversedList));
-
-
+  imprimir(reverse(NULL, reversedList));
 }
